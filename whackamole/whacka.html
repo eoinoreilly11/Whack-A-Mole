@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Whack-A-Mole</title>
+        <script>
+            var lastP = 'start';
+            var num;
+            var last = 0;
+            var btn = true;
+            var score = -1;
+            var t = 30;
+
+            function startP(){
+                if(btn == true){
+                    move();
+                    btn = false;
+                }
+                time();
+            }
+
+            function time(){
+                if(t >= 0.01){
+                    t -= 0.01
+                    document.getElementById('tbox').innerHTML = t.toFixed(2);
+                    window.setTimeout(time, 10)
+                }
+                else{
+                    document.getElementById('tbox').innerHTML = '0.00';
+                    var pic = document.getElementById("mole");
+                    pic.classList.remove(lastP);
+                    pic.classList.add('start');
+                    btn = true;
+                    t = 30;
+                    score = -1;
+                }
+            }
+
+
+            function move(){
+                if(t > 0.01){
+                    var pic = document.getElementById("mole");
+                    score++;
+                    document.getElementById('scoreBox').innerHTML = score;
+
+                    num = Math.floor(Math.random() * 6)+1;  
+                    while(last == num){
+                        num = Math.floor(Math.random() * 6)+1;
+                    }
+                    last = num;
+
+                    pic.classList.remove(lastP);
+                    pic.classList.add('pos'+num);
+                    lastP = 'pos'+num;
+                }
+            }
+        </script>
+        <style>
+            .start{
+                position: absolute;
+                left: -790px;
+            }
+            .pos1{
+                position: absolute;
+                left: 791px;
+                top: 227px;
+            }
+            .pos2{
+                position: absolute;
+                left: 973px;
+                top: 261px;
+            }
+            .pos3{
+                position: absolute;
+                left: 954px;
+                top: 333px;
+            }
+            .pos4{
+                position: absolute;
+                left: 792px;
+                top: 377px;
+            }
+            .pos5{
+                position: absolute;
+                left: 621px;
+                top: 330px;
+            }
+            .pos6{
+                position: absolute;
+                left: 600px;
+                top: 256px;
+            }
+            table{
+                font-size: 50px;
+            }
+            p{
+                color: red;
+                font-size: 30px;
+                text-align: center;
+                font-family: 'Courier New', Courier, monospace;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div onclick='startP();'><img src='../whackamole/files/start.png' width="100" style='position: absolute; left: 850px;'></div>
+        <div><img src='../whackamole/files/bg.png' style='position:absolute; left:590px; top:50px'></div>
+        <div id='mole' class='start' onclick='move();'><img src='../whackamole/files/mole.png' width='210' height="257"></div>
+        <div style='position: absolute; left: 800px; top: 650px;'>
+            <table>
+                <tr>
+                    <td><img src='../whackamole/files/score.png' width='200'></td>
+                </tr>
+                <tr style="outline-style:solid; text-align: center;">
+                    <td id='scoreBox'>0</td>
+                </tr>
+            </table>
+        </div>
+        <div style='position: absolute; left: 815px; top: 100px;'>
+            <p>TIME LEFT:</p>
+            <b><p id='tbox'>30.00</p></b>
+        </div>
+    </body>
+</html>
