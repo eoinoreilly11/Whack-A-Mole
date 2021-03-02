@@ -1,3 +1,2 @@
-# Whack-A-Mole
-Whack-A-Mole Game
+# Whack-A-Mole Game
 ![Screenshot](Screenshot.png)
